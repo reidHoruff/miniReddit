@@ -11,3 +11,11 @@ def home(request):
 @context_template_response
 def register(request):
   return "register.html", {'form': forms.Register()}
+
+@context_template_response
+def submit(request):
+  return "submit.html", {'form': forms.SubmitPost()}
+
+@context_template_response
+def _login(request):
+  return "login.html", {'form': forms.LoginForm()}

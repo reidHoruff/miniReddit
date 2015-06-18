@@ -1,3 +1,37 @@
-form input[type="text"], form input[type="password"], form input[type="submit"] {
+form input[type="text"], 
+input[type="password"],
+form input[type="submit"],
+form textarea {
   margin-top: 8px;
+}
+
+h1, h2, h3, h4 {
+  padding: 0px;
+  margin: 0px;
+}
+
+body > .header {
+  border: 1px solid gray;
+  background: #bbbbff;
+  margin-bottom: 16px;
+}
+
+body > .header > .title {
+}
+
+body > .header > .login {
+  margin: 4px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  float: right;
+}
+
+body > .header > .login > a {
+  color: blue;
+  text-decoration: underline;
+}
+
+.login > form {
+  float: right;
 }

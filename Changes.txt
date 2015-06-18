@@ -1,0 +1,3 @@
+Currently I do not plan on implementing the concept of 'subreddis' or 'boards'. All posts will simply be posted the a single site wide board.
+
+You will also not be able to submit text-only posts, all posts must contain a link to an internal or external website. I may not implement voting for comments and only for posts. Comments will still be infinately nestable, they will just be displayed in chronological order. 

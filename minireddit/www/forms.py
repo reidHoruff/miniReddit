@@ -87,7 +87,7 @@ def textarea(name, min=1, max=100, required=True):
     min_length=min,
     max_length=max,
     required=required,
-    widget=forms.Textarea(attrs={'placeholder': name}),
+    widget=forms.Textarea(attrs={'placeholder': name, 'class': 'form-control'}),
   )
 
 def hidden_integer(required=True):
@@ -105,6 +105,11 @@ class Register(SiForm):
   password2 = password_input(name='Confirm Password')
   username = text_input(name='username') 
 
+class SubmitPost(SiForm):
+  title = text_input(name='title') 
+  url = text_input(name='url') 
+  body = textarea(name='body') 
+
 class LoginForm(SiForm):
   def set_next(self, next):
     self.fields['next'].initial = next
@@ -112,4 +117,3 @@ class LoginForm(SiForm):
 
   username = text_input(name='username')
   password = password_input(name='Password')
-  next = hidden_input()

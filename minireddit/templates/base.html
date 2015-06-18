@@ -22,6 +22,19 @@
   </head>
 
   <body>
+    <div class="header">
+      <a href="/"><h1 class="title">MiniReddit</h1></a>
+      <div class="login">
+        {% if user.is_authenticated %}
+          <a href="/profile/">{{user.username}}</a>
+          <a href="#logout" data-sniper="/async/logout/">logout</a>
+          {% else %}
+          <a href="/register">register</a>
+          <a href="/login/">login</a>
+        {% endif %}
+      </div>
+    </div>
+
     <div class="container">
       {% block body %}
         NOTHING!!

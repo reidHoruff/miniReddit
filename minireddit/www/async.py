@@ -42,3 +42,38 @@ def register(request):
   except:
     yield InsertText("#error", "Sorry, this username already exists :("), None
 
+@sniper.ajax()
+def submit(request):
+  form = forms.Register(request.POST)
+  yield InsertText('#error', form.get_first_error()), None
+
+@sniper.ajax()
+def _logout(request):
+  if request.user.is_authenticated():
+    logout(request)
+    n = request.REQUEST.get('next')
+    if n:
+      yield RedirectBrowser(n)
+    else:
+      yield RedirectBrowser('/')
+
+@sniper.ajax()
+def _login(request):
+  form = forms.LoginForm(request.POST)
+
+  if form.is_valid():
+    username  = form.cleaned_data['username']
+    email = '%s@foobar.com' % form.cleaned_data['username']
+    pw = form.cleaned_data['password']
+
+    user = authenticate(username=username, password=pw)
+
+    if user and user.is_active:
+      login(request, user)
+      next = form.cleaned_data['next']
+      if next:
+        yield RedirectBrowser(next), None
+      else:
+        yield RedirectBrowser('/profile/'), None
+
+  yield InsertText("#error", "Error with login credentials"), None
