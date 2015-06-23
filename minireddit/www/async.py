@@ -69,22 +69,22 @@ def comment(request):
 
     if form.is_valid():
         body = form.cleaned_data['body']
-        post_id = form.cleaned_data['post_id']
+        isroot = form.cleaned_data['isroot']
+        postid = form.cleaned_data['postid']
         parent_id = form.cleaned_data['parent_id']
 
         parent = None
         if parent_id >= 0:
             parent = Comment.objects.get(id=parent_id)
 
-        post = Post.objects.get(id=post_id)
-
-        Comment.objects.create(
+        post = Comment.objects.create(
             author=request.user,
             body=body,
-            parent=parent,
-            post=post
+            parent=request.user,
+            sub=Sub.objects.get(name=subreddit)
         )
-        yield RedirectBrowser('/r/%s/post/%s/' % (post.sub.name, post.id)), None
+
+        yield RedirectBrowser('/r/%s/post/%s/' % (subreddit, post.id)), None
 
     else:
         yield InsertText('#error', form.get_first_error()), None
@@ -117,20 +117,6 @@ def _login(request):
 
 @sniper.ajax()
 def create_sub(request):
-    form = forms.CreateSub(request.POST)
-
-    if form.is_valid():
-        name  = form.cleaned_data['name']
-        if len(Sub.objects.filter(name=name)) > 0:
-          yield InsertText('#error', 'sub name already exists'), None
-
-        Sub.objects.create(name=name, creator=request.user)
-        yield RedirectBrowser('/r/%s/' % name), None
-    else:
-        yield InsertText('#error', form.get_first_error()), None
-
-@sniper.ajax()
-def reply_comment(request):
     form = forms.CreateSub(request.POST)
 
     if form.is_valid():
