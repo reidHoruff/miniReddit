@@ -19,11 +19,11 @@ class PasswordField(forms.CharField):
 
 def field_with_errors(field, name, *args, **kwargs):
   kwargs['error_messages'] = { 
-    'invalid': '%s is Invalid.'%name,
-    'required': '%s is Required'%name,
-    'min_length': '%s is Too short.'%name,
-    'max_length': '%s is Too Long.'%name,
-    'invalid_choice': 'Invalid Choice for %s.'%name,
+    'invalid': '%s field is invalid.'%name,
+    'required': '%s field is required'%name,
+    'min_length': '%s field is too short.'%name,
+    'max_length': '%s field is too Long.'%name,
+    'invalid_choice': 'invalid choice for %s field.'%name,
   }
   return field(*args, **kwargs)
 

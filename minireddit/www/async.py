@@ -81,7 +81,6 @@ def comment(request):
             author=request.user,
             body=body,
             parent=request.user,
-            body=body,
             sub=Sub.objects.get(name=subreddit)
         )
         yield RedirectBrowser('/r/%s/post/%s/' % (subreddit, post.id)), None
