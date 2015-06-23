@@ -33,7 +33,7 @@ def view_post(request, subreddit, post_id):
             'post': Post.objects.get(id=post_id),
             'is_sub': True,
             'subreddit': subreddit,
-            'rootcommentform': forms.PostComment().set_parent(-1).set_post_id(post_id),
+            'rootcommentform': forms.PostComment().set_parent_id(-1).set_post_id(post_id),
             }
 
     return render_to_response(

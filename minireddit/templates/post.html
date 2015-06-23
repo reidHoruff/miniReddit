@@ -22,13 +22,23 @@
   {% if user.is_authenticated %}
   <div class="rootcomment">
     <h3>leave comment as {{user.username}}</h3>
-    <form class="comment" method="POST" action="/async/postcomment/" data-sniper="true">
+    <form method="POST" action="/async/comment/" data-sniper="true">
       {% csrf_token %}
       {{rootcommentform.body}}
-      {{rootcommentform.isroot}}
-      {{rootcommentform.postid}}
+      {{rootcommentform.post_id}}
+      {{rootcommentform.parent_id}}
       <input class="btn" type="submit" value="submit" />
     </form>
     </div>
   {% endif %}
+
+  <h3>comments</h3>
+
+  {% for comment in post.comments.all %}
+  <div class="comment">
+    <p class="author">by {{comment.author.username}}</p>
+    <p>{{comment.body}}</p>
+    <a class="action" href="#reply">reply</a>
+  </div>
+  {% endfor %}
 {% endblock %}

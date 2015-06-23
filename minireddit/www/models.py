@@ -16,14 +16,17 @@ class Post(models.Model):
     body = models.TextField()
     sub = models.ForeignKey(Sub)
 
+    def get_comments(self):
+        return self.comments
+
     def __unicode__(self):
         return self.title
 
 class Comment(models.Model):
     author = models.ForeignKey(User)
     body = models.TextField()
-    parent_id = models.ForeignKey('Comment')
-    post = models.ForeignKey(Post)
+    parent = models.ForeignKey('Comment', null=True, related_name='children_comments')
+    post = models.ForeignKey(Post, related_name='comments')
 
     def __unicode__(self):
         return self.author.username

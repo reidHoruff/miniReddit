@@ -6,7 +6,7 @@
   border: 1px solid gray;
 }
 
-form.comment textarea {
+form textarea {
   background: #eee;
   max-width: 600px;
   height: 200px;
@@ -14,4 +14,28 @@ form.comment textarea {
 
 .rootcomment {
   margin-top: 36px;
+}
+
+.comment {
+  border: 1px solid #ccc;
+  padding: 4px;
+  margin-bottom: 8px;
+  border-radius: 2px;
+}
+
+.comment p {
+  padding: 0px;
+  margin: 0px;
+}
+
+.comment a.action {
+  font-weight: bold;
+  color: #777;
+  font-size: 12px;
+}
+
+.comment p.author {
+  font-weight: bold;
+  color: #77a;
+  font-size: 12px;
 }
