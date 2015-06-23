@@ -33,6 +33,7 @@ def view_post(request, subreddit, post_id):
             'post': Post.objects.get(id=post_id),
             'is_sub': True,
             'subreddit': subreddit,
+            'rootcommentform': forms.PostComment().set_parent(-1).set_post_id(post_id),
             }
 
     return render_to_response(
@@ -47,7 +48,8 @@ def register(request):
 
 @context_template_response
 def submit(request):
-    return "submit.html", {'form': forms.SubmitPost()}
+    sub = request.REQUEST.get('sub')
+    return "submit.html", {'form': forms.SubmitPost().set_sub(sub)}
 
 @context_template_response
 def create_sub(request):

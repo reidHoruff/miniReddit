@@ -15,9 +15,20 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{post.title}}</h1>
-  <p>{{post.body}}</p>
+  <a class="postlink" href="{{post.url}}"><h3>{{post.title}}</h3></a>
+  <p>submitted by <a href="#">{{post.author.username}}</a> to <a href="/r/{{post.sub.name}}">/r/{{post.sub.name}}</a></p>
+  <p class="postbody">{{post.body}}</p>
 
-  {% if user.is_authenticated() %}
+  {% if user.is_authenticated %}
+  <div class="rootcomment">
+    <h3>leave comment as {{user.username}}</h3>
+    <form class="comment" method="POST" action="/async/postcomment/" data-sniper="true">
+      {% csrf_token %}
+      {{rootcommentform.body}}
+      {{rootcommentform.isroot}}
+      {{rootcommentform.postid}}
+      <input class="btn btn-success" type="submit" value="submit" />
+    </form>
+    </div>
   {% endif %}
 {% endblock %}

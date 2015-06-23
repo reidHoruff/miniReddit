@@ -4,3 +4,12 @@
   font-weight: bold;
 }
 
+.sidebar .loginform input {
+  width: 100%;
+  font-weight: bold;
+}
+
+a.createaccount {
+  margin-bottom: 24px;
+}
+

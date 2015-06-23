@@ -21,14 +21,14 @@
   <div class="col-md-3 sidebar">
     {% if not user.is_authenticated %}
     <h3 id="error"></h3>
-    <form method="POST" action="/async/login/" data-sniper="true">
+    <form class="loginform" method="POST" action="/async/login/" data-sniper="true">
       {{form.username}}
       {{form.password}}
       {% csrf_token %}
       <input class="btn btn-success" type="submit" value="login" />
     </form>
 
-    <a href="/register/" class="btn btn-primary">create an account</a>
+    <a href="/register/" class="btn btn-primary createaccount">create an account</a>
     <br />
     {% endif %}
 
@@ -44,7 +44,7 @@
     <br />
 
     {% if is_sub %}
-      <a href="/submit/" class="btn btn-primary">submit a link to /r/{{subreddit}}</a>
+    <a href="/submit/?sub={{subreddit}}" class="btn btn-primary">submit a link to /r/{{subreddit}}</a>
       <br />
     {% endif %}
   </div>

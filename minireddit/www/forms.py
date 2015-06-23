@@ -27,7 +27,7 @@ def field_with_errors(field, name, *args, **kwargs):
   }
   return field(*args, **kwargs)
 
-def text_input(name, min=1, max=100, required=True):
+def text_input(name, min=1, max=1000, required=True):
   return field_with_errors(
     field=forms.CharField,
     name=name,
@@ -106,6 +106,10 @@ class Register(SiForm):
   username = text_input(name='username') 
 
 class SubmitPost(SiForm):
+  def set_sub(self, sub):
+    self.fields['subreddit'].initial = sub
+    return self
+
   title = text_input(name='title') 
   subreddit = text_input(name='subreddit') 
   url = text_input(name='url') 
@@ -117,3 +121,16 @@ class CreateSub(SiForm):
 class LoginForm(SiForm):
   username = text_input(name='username')
   password = password_input(name='Password')
+
+class PostComment(SiForm):
+  def set_parent(self, parent):
+    self.fields['parent'].initial = parent
+    return self
+
+  def set_post_id(self, postid):
+    self.fields['postid'].initial = postid
+    return self
+
+  body = textarea(name='body')
+  postid = hidden_input()
+  parent = hidden_input()

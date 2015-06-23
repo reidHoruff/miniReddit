@@ -58,6 +58,33 @@ def submit(request):
             body=body,
             sub=Sub.objects.get(name=subreddit)
         )
+        yield RedirectBrowser('/r/%s/post/%s/' % (subreddit, post.id)), None
+
+    else:
+        yield InsertText('#error', form.get_first_error()), None
+
+@sniper.ajax()
+def comment(request):
+    form = forms.PostComment(request.POST)
+
+    if form.is_valid():
+        body = form.cleaned_data['body']
+        isroot = form.cleaned_data['isroot']
+        postid = form.cleaned_data['postid']
+        parent_id = form.cleaned_data['parent_id']
+
+        parent = None
+        if parent_id >= 0:
+            parent = Comment.objects.get(id=parent_id)
+
+        post = Comment.objects.create(
+            author=request.user,
+            body=body,
+            parent=request.user,
+            body=body,
+            sub=Sub.objects.get(name=subreddit)
+        )
+        yield RedirectBrowser('/r/%s/post/%s/' % (subreddit, post.id)), None
 
     else:
         yield InsertText('#error', form.get_first_error()), None

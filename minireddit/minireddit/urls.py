@@ -12,6 +12,7 @@ urlpatterns = patterns('',
 
     #async sniper stuff
     url(r'^async/register/$', 'www.async.register'),
+    url(r'^async/comment/$', 'www.async.comment'),
     url(r'^async/createsub/$', 'www.async.create_sub'),
     url(r'^async/submit/$', 'www.async.submit'),
     url(r'^async/logout/$', 'www.async._logout'),

@@ -18,3 +18,13 @@ class Post(models.Model):
 
     def __unicode__(self):
         return self.title
+
+class Comment(models.Model):
+    author = models.ForeignKey(User)
+    body = models.TextField()
+    parent_id = models.ForeignKey(Comment)
+    post = models.ForeignKey(Post)
+
+    def __unicode__(self):
+        return self.author.username
+

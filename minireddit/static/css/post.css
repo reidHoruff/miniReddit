@@ -1,0 +1,17 @@
+.postlink {
+}
+.postbody {
+  padding: 6px;
+  background: #f0f0f0;
+  border: 1px solid gray;
+}
+
+form.comment textarea {
+  background: #eee;
+  max-width: 600px;
+  height: 200px;
+}
+
+.rootcomment {
+  margin-top: 36px;
+}
