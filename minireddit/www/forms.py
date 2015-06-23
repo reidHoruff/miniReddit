@@ -107,13 +107,13 @@ class Register(SiForm):
 
 class SubmitPost(SiForm):
   title = text_input(name='title') 
+  subreddit = text_input(name='subreddit') 
   url = text_input(name='url') 
   body = textarea(name='body') 
 
-class LoginForm(SiForm):
-  def set_next(self, next):
-    self.fields['next'].initial = next
-    return self
+class CreateSub(SiForm):
+  name = text_input(name='name') 
 
+class LoginForm(SiForm):
   username = text_input(name='username')
   password = password_input(name='Password')

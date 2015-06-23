@@ -8,17 +8,18 @@
   <link href="{% static 'css/submit.css' %}" type="text/css" rel="stylesheet"/>
 {% endblock %}
 
-{% block body %}
-<h2>Submit a link to MiniReddit</h2>
+{% block contained %}
+<h2>Submit a link to &mu;Reddit</h2>
 <h3 id="error"></h3>
 <div class="row">
   <div class="col-md-3">
     <form method="POST" action="/async/submit/" data-sniper="true">
       {% csrf_token %}
+      {{form.subreddit}}
       {{form.title}}
       {{form.url}}
       {{form.body}}
-      <input class="btn btn-success" type="submit" value="register" />
+      <input class="btn btn-success" type="submit" value="submit" />
     </form>
   </div>
 </div>

@@ -1,0 +1,23 @@
+{% extends 'with_side.html' %}
+
+{% load staticfiles %}
+{% load sniper %}
+
+{% block extracss %}
+  {{block.super}}
+  <link href="{% static 'css/post.css' %}" type="text/css" rel="stylesheet"/>
+{% endblock %}
+
+{% block subtitle %}
+  {% if is_sub %}
+  <a href="/r/{{subreddit}}"><h3>{{subreddit}}</h3></a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <h1>{{post.title}}</h1>
+  <p>{{post.body}}</p>
+
+  {% if user.is_authenticated() %}
+  {% endif %}
+{% endblock %}

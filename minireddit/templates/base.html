@@ -23,29 +23,32 @@
 
   <body>
     <div class="header">
-      <a href="/"><h1 class="title">MiniReddit</h1></a>
+      <a href="/"><h1 class="title">&mu;Reddit</h1></a>
+      <div class="subtitle">
+        {% block subtitle %}
+        {% endblock %}
+      </div>
       <div class="login">
         {% if user.is_authenticated %}
-          <a href="/profile/">{{user.username}}</a>
+          <a href="/profile/">{{user.username}}</a> | 
           <a href="#logout" data-sniper="/async/logout/">logout</a>
-          {% else %}
-          <a href="/register">register</a>
-          <a href="/login/">login</a>
         {% endif %}
       </div>
     </div>
 
-    <div class="container">
-      {% block body %}
+
+    {% block body %}
+    <div class="container-fluid">
+      {% block contained %}
         NOTHING!!
       {% endblock %}
-
-      <!-- JS -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script src="{% static 'bs/js/bootstrap.min.js' %}"></script>
-      <script src="{% static 'js/sniper.js' %}"></script>
-
     </div>
+    {% endblock %}
+
+  <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{% static 'bs/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/sniper.js' %}"></script>
   </body>
 </html>
 

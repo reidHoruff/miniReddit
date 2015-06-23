@@ -1,0 +1,18 @@
+h3#error {
+  color: red;
+}
+
+.post {
+  margin-top: 16px;
+}
+
+.post > .title {
+  color: blue;
+}
+
+.post > p {
+  margin: 0px;
+  padding: 0px;
+  font-size: 12px;
+  color: #888;
+}

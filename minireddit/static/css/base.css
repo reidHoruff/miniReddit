@@ -12,11 +12,16 @@ h1, h2, h3, h4 {
 
 body > .header {
   border: 1px solid gray;
-  background: #bbbbff;
+  background: #cee3f8;
   margin-bottom: 16px;
+  padding-left: 18px;
+  padding-bottom: 4px;
+  padding-right: 4px;
 }
 
-body > .header > .title {
+body > .header > a {
+  text-decoration: none;
+  color: #222;
 }
 
 body > .header > .login {
@@ -34,4 +39,12 @@ body > .header > .login > a {
 
 .login > form {
   float: right;
+}
+
+.foo {
+  background: red;
+}
+
+.header > .subtitle {
+
 }
