@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-  <a class="postlink" href="{{post.url}}"><h3>{{post.title}}</h3></a>
+  <a class="postlink" href="{{post.url}}"><h3>"{{post.title}}"</h3></a>
   <p>submitted by <a href="#">{{post.author.username}}</a> to <a href="/r/{{post.sub.name}}">/r/{{post.sub.name}}</a></p>
   <p class="postbody">{{post.body}}</p>
 

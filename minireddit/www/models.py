@@ -22,7 +22,7 @@ class Post(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(User)
     body = models.TextField()
-    parent_id = models.ForeignKey(Comment)
+    parent_id = models.ForeignKey('Comment')
     post = models.ForeignKey(Post)
 
     def __unicode__(self):
