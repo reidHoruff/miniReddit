@@ -123,14 +123,14 @@ class LoginForm(SiForm):
   password = password_input(name='Password')
 
 class PostComment(SiForm):
-  def set_parent(self, parent):
-    self.fields['parent'].initial = parent
+  def set_parent_id(self, parent):
+    self.fields['parent_id'].initial = parent
     return self
 
   def set_post_id(self, postid):
-    self.fields['postid'].initial = postid
+    self.fields['post_id'].initial = postid
     return self
 
   body = textarea(name='body')
-  postid = hidden_input()
-  parent = hidden_input()
+  post_id = hidden_integer()
+  parent_id = hidden_integer()

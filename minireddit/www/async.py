@@ -69,22 +69,23 @@ def comment(request):
 
     if form.is_valid():
         body = form.cleaned_data['body']
-        isroot = form.cleaned_data['isroot']
-        postid = form.cleaned_data['postid']
+        post_id = form.cleaned_data['post_id']
         parent_id = form.cleaned_data['parent_id']
+
+        post = Post.objects.get(id=post_id)
 
         parent = None
         if parent_id >= 0:
             parent = Comment.objects.get(id=parent_id)
 
-        post = Comment.objects.create(
+        Comment.objects.create(
             author=request.user,
             body=body,
-            parent=request.user,
-            sub=Sub.objects.get(name=subreddit)
+            parent=parent,
+            post=post
         )
 
-        yield RedirectBrowser('/r/%s/post/%s/' % (subreddit, post.id)), None
+        yield RedirectBrowser('/r/%s/post/%s/' % (post.sub.name, post.id)), None
 
     else:
         yield InsertText('#error', form.get_first_error()), None
@@ -128,3 +129,14 @@ def create_sub(request):
         yield RedirectBrowser('/r/%s/' % name), None
     else:
         yield InsertText('#error', form.get_first_error()), None
+
+@sniper.ajax()
+def view_comment_reply(request):
+    parent_id = request.REQUEST['parent_id']
+    post_id = request.REQUEST['post_id']
+
+    args = {
+            'commentform': forms.PostComment().set_parent_id(parent_id).set_post_id(post_id),
+    }
+
+    yield InsertTemplate(".reply-box-%s"%parent_id, "replybox.html", args)

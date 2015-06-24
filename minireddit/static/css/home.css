@@ -3,7 +3,11 @@ h3#error {
 }
 
 .post {
-  margin-top: 16px;
+  padding: 8px;
+}
+
+.post:hover {
+  background: #eef;
 }
 
 .post > .title {

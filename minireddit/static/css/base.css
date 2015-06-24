@@ -52,3 +52,24 @@ body > .header > .login > a {
 .header > .subtitle {
 
 }
+
+.dull {
+  font-weight: bold;
+  color: #888;
+  font-size: 11px;
+  padding-left: 1px;
+}
+
+.dull2 {
+  font-weight: bold;
+  font-size: 11px;
+  padding-left: 1px;
+  color: #369;
+}
+
+.dull3 {
+  font-size: 11px;
+  padding-left: 1px;
+  color: #222;
+  font-weight: bold;
+}

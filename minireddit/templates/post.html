@@ -16,7 +16,7 @@
 
 {% block content %}
   <a class="postlink" href="{{post.url}}"><h3>"{{post.title}}"</h3></a>
-  <p>submitted by <a href="#">{{post.author.username}}</a> to <a href="/r/{{post.sub.name}}">/r/{{post.sub.name}}</a></p>
+  <p class="dull">submitted by <a href="#" class="dull2">{{post.author.username}}</a> to <a href="/r/{{post.sub.name}}" class="dull2">/r/{{post.sub.name}}</a></p>
   <p class="postbody">{{post.body}}</p>
 
   {% if user.is_authenticated %}
@@ -34,11 +34,9 @@
 
   <h3>comments</h3>
 
-  {% for comment in post.comments.all %}
-  <div class="comment">
-    <p class="author">by {{comment.author.username}}</p>
-    <p>{{comment.body}}</p>
-    <a class="action" href="#reply">reply</a>
-  </div>
+  {% for cc in post.get_comments %}
+    {% with template_name="recur_comment_view.html" post=post comment=cc color="colora" ncolor="colorb" %}
+      {% include template_name %}
+    {% endwith %}
   {% endfor %}
 {% endblock %}
