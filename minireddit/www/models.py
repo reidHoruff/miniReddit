@@ -16,6 +16,7 @@ class Post(models.Model):
     url = models.CharField(max_length=1000)
     title = models.CharField(max_length=1000)
     author = models.ForeignKey(User, related_name='posts')
+    score = models.IntegerField()
     body = models.TextField()
     sub = models.ForeignKey(Sub)
 

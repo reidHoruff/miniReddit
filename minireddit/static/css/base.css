@@ -9,7 +9,15 @@ a {
   color: blue;
 }
 
-h1, h2, h3, h4 {
+.g {
+  color: #777;
+}
+
+.b {
+  font-weight: bold;
+}
+
+h1, h2, h3, h4, p, a, label {
   padding: 0px;
   margin: 0px;
 }
@@ -72,4 +80,32 @@ body > .header > .login > a {
   padding-left: 1px;
   color: #222;
   font-weight: bold;
+}
+
+.c {
+  text-align: center;
+}
+
+.arrow-up {
+  position: relative;
+  left: 15px;
+	width: 0; 
+	height: 0; 
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid #aaa;
+}
+
+.arrow-down {
+  position: relative;
+  left: 15px;
+	width: 0; 
+	height: 0; 
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid #aaa;
+}
+
+.scoring {
+  width: 50px;
 }

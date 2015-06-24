@@ -6,7 +6,7 @@ h3#error {
   padding: 8px;
 }
 
-.post:hover {
+.post:hover .content {
   background: #eef;
 }
 
@@ -14,9 +14,27 @@ h3#error {
   color: blue;
 }
 
-.post > p {
+.post {
+  position: relative;
+}
+
+.post > .content {
+}
+
+.post > div.content > p {
   margin: 0px;
   padding: 0px;
-  font-size: 12px;
-  color: #888;
+}
+
+div.post div.scoring {
+  position: absolute;
+} 
+
+div.post div.content {
+  position: relative;
+  left: 50px;
+}
+
+div.post div.scoring div.score p {
+  font-size: 16px;
 }
