@@ -59,3 +59,13 @@ def create_sub(request):
 @context_template_response
 def _login(request):
     return "login.html", {'form': forms.LoginForm()}
+
+def view_profile(request, username):
+    data = {
+            'owner': User.objects.get(username=username),
+    }
+    return render_to_response(
+            "profile.html",
+            data,
+            context_instance=RequestContext(request)
+        )

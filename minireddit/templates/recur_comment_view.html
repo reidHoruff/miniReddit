@@ -1,5 +1,5 @@
 <div class="comment {{color}}">
-<p class="dull2">{{comment.comment.author.username}} <span class="dull">&mu;</span> <span class="dull3">{{comment.comment.score}} points</span></p>
+<p class="dull2"><a href="/u/{{comment.comment.author.username}}" class="dull2">{{comment.comment.author.username}}</a> <span class="dull">&mu;</span> <span class="dull3">{{comment.comment.score}} points</span></p>
   <p>{{comment.comment.body}}</p>
   <a class="dull" href="#reply" data-sniper="/async/view_comment_reply?parent_id={{comment.comment.id}}&post_id={{post.id}}">reply</a>
   <a class="dull" href="#message" data-sniper="/async/view_comment_reply?parent_id={{comment.comment.id}}&post_id={{post.id}}">message</a>

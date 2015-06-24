@@ -82,6 +82,7 @@ def comment(request):
             author=request.user,
             body=body,
             parent=parent,
+            score=1,
             post=post
         )
 

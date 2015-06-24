@@ -6,13 +6,16 @@ class Sub(models.Model):
     creator = models.ForeignKey(User, related_name='created_subs')
     subscribers = models.ManyToManyField(User, related_name='subscribed_to')
 
+    def url(self):
+        return "/r/%s/" % self.name
+
     def __unicode__(self):
         return self.name
 
 class Post(models.Model):
     url = models.CharField(max_length=1000)
     title = models.CharField(max_length=1000)
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, related_name='posts')
     body = models.TextField()
     sub = models.ForeignKey(Sub)
 
@@ -22,11 +25,14 @@ class Post(models.Model):
             children.append(child.agg())
         return children
 
+    def reddit_url(self):
+        return "/r/%s/post/%s" % (self.sub.name, self.id)
+
     def __unicode__(self):
         return self.title
 
 class Comment(models.Model):
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, related_name='comments')
     score = models.IntegerField()
     body = models.TextField()
     parent = models.ForeignKey('Comment', null=True, related_name='children')
