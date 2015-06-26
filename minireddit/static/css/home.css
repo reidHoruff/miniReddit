@@ -27,6 +27,7 @@ h3#error {
 }
 
 div.post div.scoring {
+  margin-top: 4px;
   position: absolute;
 } 
 

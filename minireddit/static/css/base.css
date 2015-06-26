@@ -49,16 +49,26 @@ body > .header > .login > a {
   text-decoration: underline;
 }
 
+body > .header > .sublist {
+  background: grey;
+}
+
 .login > form {
   float: right;
 }
 
-.foo {
-  background: red;
+.sublist {
+  height: 18px;
+  line-height: 18px;
+  padding-left: 18px;
+  background: #eee;
 }
 
-.header > .subtitle {
-
+.sublist a {
+  margin-right: 4px;
+  text-transform: uppercase;
+  font-size: 8px;
+  color: #333;
 }
 
 .dull {
@@ -78,7 +88,7 @@ body > .header > .login > a {
 .dull3 {
   font-size: 11px;
   padding-left: 1px;
-  color: #222;
+  color: #333;
   font-weight: bold;
 }
 
