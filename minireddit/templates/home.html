@@ -18,9 +18,9 @@
   {% for post in posts %}
     <div class="post">
       <div class="scoring c">
-        <a href="#up"><div class="arrow-up"></div></a>
-        <div class="score c"><p class="b g">{{post.score}}</p></div>
-        <a href="#down"><div class="arrow-down"></div></a>
+        <a href="#up" data-sniper="/async/vote?type=post&id={{post.id}}&value=u"><div class="arrow-up"></div></a>
+        <div class="score c"><p class="b g" id="score-{{post.id}}">{{post.score}}</p></div>
+        <a href="#down" data-sniper="/async/vote?type=post&id={{post.id}}&value=d"><div class="arrow-down"></div></a>
       </div>
       <div class="content">
         <a href="{{post.url}}" class="title"><h4>{{post.title}}</h4></a>
