@@ -125,3 +125,17 @@ body > .header > .sublist {
 .scoring {
   width: 50px;
 }
+
+.header  h1.title {
+  display: inline-block;
+}
+
+.header > .subtitle {
+  margin-left: 12px;
+  display: inline-block;
+}
+
+.header > .subtitle > a {
+  font-weight: bold;
+  color: black;
+}

@@ -7,6 +7,7 @@ class Sub(models.Model):
     name = models.CharField(max_length=255)
     creator = models.ForeignKey(User, related_name='created_subs')
     subscribers = models.ManyToManyField(User, related_name='subscribed_to')
+    datetime = models.DateTimeField(auto_now=True)
 
     def dump(self):
         return {
@@ -30,6 +31,7 @@ class Post(models.Model):
     score = models.IntegerField()
     body = models.TextField()
     sub = models.ForeignKey(Sub)
+    datetime = models.DateTimeField(auto_now=True)
     scraped = models.BooleanField(default=False)
 
     def get_comments(self):
@@ -39,8 +41,8 @@ class Post(models.Model):
             return json.loads(cache.get(cache_key))
 
         children = list()
-        for child in self.comments.all():
-            children.append(child.agg())
+        for child in self.comments.filter(parent=None).order_by('-score'):
+            children.append(child.agg(5))
 
         cache.set(cache_key, json.dumps(children))
         return children
@@ -71,11 +73,14 @@ class Comment(models.Model):
     parent = models.ForeignKey('Comment', null=True, related_name='children')
     post = models.ForeignKey(Post, related_name='comments')
     scraped = models.BooleanField(default=False)
+    datetime = models.DateTimeField(auto_now=True)
 
-    def agg(self):
+    def agg(self, depth=0):
         children = list()
-        for child in self.children.all():
-            children.append(child.agg())
+
+        if depth > 0:
+            for child in self.children.order_by('-score'):
+                children.append(child.agg(depth-1))
 
         tree = {
                 'comment': self.dump(),
@@ -92,6 +97,7 @@ class Comment(models.Model):
         return {
                 'author': {'username': self.author.username},
                 'score': self.score,
+                'id': self.id,
                 'body': self.body,
                 'parent': parent,
                 'post': self.post.dump(),

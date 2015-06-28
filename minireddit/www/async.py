@@ -73,6 +73,11 @@ def submit(request):
             is_self=is_self,
             domain=domain
         )
+
+        if is_self:
+            post.url = "/r/%s/post/%s/" % (subreddit, post.id)
+            post.save()
+
         yield RedirectBrowser('/r/%s/post/%s/' % (subreddit, post.id)), None
 
     else:
@@ -208,50 +213,9 @@ def vote(request):
         comment.score -= old_value
         comment.score += value
         comment.save()
+        yield InsertText("#comm_score_%s" % id, "%s points" % comment.score)
         yield JSLog("score updated: %s" % comment.score)
 
 @sniper.ajax()
 def sub(request):
-    type = request.REQUEST.get('type')
-    id = request.REQUEST.get('id')
-    value = request.REQUEST.get('value')
-    value = {'u': 1, 'd': -1}[value]
-
-    if type == 'post':
-        post = Post.objects.get(id=id)
-        old_value = 0
-        if PostVote.objects.filter(author=request.user, post=post).exists():
-            vote = PostVote.objects.get(author=request.user, post=post)
-            old_value = vote.value
-            vote.value = value
-            vote.save()
-        else:
-            PostVote.objects.create(
-                    author=request.user,
-                    post=post,
-                    value=value
-                    )
-        post.score -= old_value
-        post.score += value
-        post.save()
-        yield JSLog("score updated: %s" % post.score)
-        yield InsertText("#score-%s" % id, post.score)
-
-    if type == 'comment':
-        comment = Comment.objects.get(id=id)
-        old_value = 0
-        if CommentVote.objects.filter(author=request.user, comment=comment).exists():
-            vote = CommentVote.objects.get(author=request.user, comment=comment)
-            old_value = vote.value
-            vote.value = value
-            vote.save()
-        else:
-            CommentVote.objects.create(
-                    author=request.user,
-                    comment=comment,
-                    value=value
-                    )
-        comment.score -= old_value
-        comment.score += value
-        comment.save()
-        yield JSLog("score updated: %s" % comment.score)
+    yield JSLog("score updated: %s" % comment.score)
