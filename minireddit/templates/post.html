@@ -35,7 +35,11 @@
     </div>
   {% endif %}
 
+  {% if post.comments.count %}
   <h3>comments</h3>
+  {% else %}
+  <h3>no one has commented yet</h3>
+  {% endif %}
 
   {% for cc in post.get_comments %}
     {% with template_name="recur_comment_view.html" post=post comment=cc color="colora" ncolor="colorb" %}

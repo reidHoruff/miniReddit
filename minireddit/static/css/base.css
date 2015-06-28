@@ -72,7 +72,6 @@ body > .header > .sublist {
 }
 
 .dull {
-  font-weight: bold;
   color: #888;
   font-size: 11px;
   padding-left: 1px;
@@ -92,6 +91,13 @@ body > .header > .sublist {
   font-weight: bold;
 }
 
+.dull4 {
+  font-weight: bold;
+  color: #888;
+  font-size: 11px;
+  padding-left: 1px;
+}
+
 .c {
   text-align: center;
 }
@@ -103,7 +109,7 @@ body > .header > .sublist {
 	height: 0; 
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
-	border-bottom: 10px solid #aaa;
+	border-bottom: 10px solid #ccc;
 }
 
 .arrow-down {
@@ -113,7 +119,7 @@ body > .header > .sublist {
 	height: 0; 
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
-	border-top: 10px solid #aaa;
+	border-top: 10px solid #ccc;
 }
 
 .scoring {

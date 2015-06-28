@@ -11,9 +11,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 def read_json_page(url):
     print "requesting:", url
-    time.sleep(5)
+    time.sleep(15)
     aResp = urllib2.urlopen(url)
-    return json.loads(aResp.read())
+    js = json.loads(aResp.read())
+    print "fetched..."
+    return js
 
 def create_or_get_user(username):
     try:
@@ -65,11 +67,18 @@ def read_sub(sub):
     data = read_json_page("http://reddit.com/r/%s/.json" % sub)
     children = data['data']['children']
 
+    print "posts:", len(children)
+
     subreddit = create_or_get_sub(sub)
 
     for child in children:
         if child['kind'] == 't3':
             cdata = child['data']
+
+            if Post.objects.filter(reddit_id=cdata['id']).exists():
+                post = Post.objects.filter(reddit_id=cdata['id'])
+                Comment.objects.filter(post=post).delete()
+                post.delete()
 
             post = Post.objects.create(
                     url=cdata['url'],
@@ -78,6 +87,9 @@ def read_sub(sub):
                     score=cdata['score'],
                     body=cdata['selftext'],
                     sub=create_or_get_sub(sub),
+                    reddit_id=cdata['id'],
+                    is_self=cdata['is_self'],
+                    domain=cdata['domain'],
                     scraped=True
             )
 
@@ -100,5 +112,17 @@ def read_sub(sub):
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        print read_sub('news')
+        to_pull = [
+                'news', 
+                'videos',
+                'audiophile',
+                'engineeringporn',
+                'brewing',
+                'linux',
+                'movies',
+                'truefilm',
+                'subaru',
+                'wikipedia',
+                ]
+        print read_sub('programming')
 

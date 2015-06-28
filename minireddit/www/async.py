@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from models import *
 import forms
+from django.core.cache import cache
+from urlparse import urlparse
 
 @sniper.ajax()
 def register(request):
@@ -51,12 +53,25 @@ def submit(request):
         if len(Sub.objects.filter(name=subreddit)) < 1:
             yield InsertText('#error', "subreddit not does not exist"), None
 
+        if not url and not body:
+            yield InsertText('#error', "you must supply either a url or body text."), None
+
+        if not url:
+            is_self = True
+            domain = "self.%s" % subreddit
+        else:
+            is_self = False
+            domain = '{uri.netloc}'.format(uri=urlparse(url))
+
         post = Post.objects.create(
             url=url,
             title=title,
             author=request.user,
             body=body,
-            sub=Sub.objects.get(name=subreddit)
+            sub=Sub.objects.get(name=subreddit),
+            score=1,
+            is_self=is_self,
+            domain=domain
         )
         yield RedirectBrowser('/r/%s/post/%s/' % (subreddit, post.id)), None
 
@@ -85,6 +100,9 @@ def comment(request):
             score=1,
             post=post
         )
+
+        cache_key = "post:%s" % post.id
+        cache.delete(cache_key)
 
         yield RedirectBrowser('/r/%s/post/%s/' % (post.sub.name, post.id)), None
 
@@ -142,8 +160,12 @@ def view_comment_reply(request):
 
     yield InsertTemplate(".reply-box-%s"%parent_id, "replybox.html", args)
 
-@sniper.ajax(authenticate=True)
+@sniper.ajax()
 def vote(request):
+
+    if not request.user.is_authenticated():
+        yield RedirectBrowser('/login/'), None
+
     type = request.REQUEST.get('type')
     id = request.REQUEST.get('id')
     value = request.REQUEST.get('value')

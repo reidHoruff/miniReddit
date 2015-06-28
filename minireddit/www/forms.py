@@ -112,8 +112,8 @@ class SubmitPost(SiForm):
 
   title = text_input(name='title') 
   subreddit = text_input(name='subreddit') 
-  url = text_input(name='url') 
-  body = textarea(name='body') 
+  url = text_input(name='url', required=False) 
+  body = textarea(name='body', required=False) 
 
 class CreateSub(SiForm):
   name = text_input(name='name') 

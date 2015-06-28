@@ -10,7 +10,7 @@ h3#error {
   background: #eef;
 }
 
-.post > .title {
+4post > .title {
   color: blue;
 }
 
@@ -19,6 +19,11 @@ h3#error {
 }
 
 .post > .content {
+}
+
+.content > a {
+  margin: 0px;
+  padding: 0px;
 }
 
 .post > div.content > p {
@@ -37,5 +42,9 @@ div.post div.content {
 }
 
 div.post div.scoring div.score p {
-  font-size: 16px;
+  color: #ccc;
+  font: x-small verdana, arial;
+  font-weight: bold;
+  font-size: small;
+  margin: 4px;
 }
