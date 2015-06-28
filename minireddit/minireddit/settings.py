@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'sniper',
     'www',
+    'markdown_deux',
 )
 
 MIDDLEWARE_CLASSES = (

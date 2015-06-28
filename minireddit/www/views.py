@@ -6,15 +6,35 @@ import forms
 
 @context_template_response
 def home(request):
+    defaults = [
+            'funny',
+            'pics',
+            'askreddit',
+            'news',
+            'movies',
+            'books',
+            'programming',
+        ]
+
+    if request.user.is_authenticated():
+        posts = Post.objects.filter(sub__in=request.user.subscribed_to.all())
+    else:
+        posts = Post.objects.filter(sub__name__in=defaults)
+
     data = {
             'form': forms.LoginForm(),
-            'posts': Post.objects.all(),
+            'all_subs': Sub.objects.all(),
+            'posts': posts,
             'is_sub': False,
             }
     return "home.html", data
 
 def subreddit(request, subreddit):
+    issubbed = request.user.is_authenticated() and Sub.objects.filter(subscribers__id=request.user.id).exists()
+
     data = {
+            'issubbed': issubbed,
+            'all_subs': Sub.objects.all(),
             'form': forms.LoginForm(),
             'posts': Post.objects.filter(sub=Sub.objects.get(name=subreddit)),
             'is_sub': True,
@@ -28,7 +48,10 @@ def subreddit(request, subreddit):
         )
 
 def view_post(request, subreddit, post_id):
+    issubbed = request.user.is_authenticated() and Sub.objects.filter(subscribers__id=request.user.id).exists()
     data = {
+            'issubbed': issubbed,
+            'all_subs': Sub.objects.all(),
             'form': forms.LoginForm(),
             'post': Post.objects.get(id=post_id),
             'is_sub': True,

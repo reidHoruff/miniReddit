@@ -9,13 +9,22 @@ import time
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+def add_id_to_file(id):
+    f = open("pulled", "a")
+    f.write("%s\n" % id)
+    f.close()
+
 def read_json_page(url):
     print "requesting:", url
-    time.sleep(15)
-    aResp = urllib2.urlopen(url)
-    js = json.loads(aResp.read())
-    print "fetched..."
-    return js
+    while True:
+        try:
+            aResp = urllib2.urlopen(url)
+            js = json.loads(aResp.read())
+            print "fetched..."
+            return js
+        except:
+            print "failed..."
+            time.sleep(2)
 
 def create_or_get_user(username):
     try:
@@ -63,11 +72,9 @@ def read_comments(post, link):
     for child in root_comments:
         handle_comment(post, child)
 
-def read_sub(sub):
+def read_sub(sub, pulled):
     data = read_json_page("http://reddit.com/r/%s/.json" % sub)
     children = data['data']['children']
-
-    print "posts:", len(children)
 
     subreddit = create_or_get_sub(sub)
 
@@ -75,10 +82,16 @@ def read_sub(sub):
         if child['kind'] == 't3':
             cdata = child['data']
 
+            if cdata['id'] in pulled:
+                print 'skipping', cdata['id']
+                continue
+
+            """
             if Post.objects.filter(reddit_id=cdata['id']).exists():
                 post = Post.objects.filter(reddit_id=cdata['id'])
                 Comment.objects.filter(post=post).delete()
                 post.delete()
+            """
 
             post = Post.objects.create(
                     url=cdata['url'],
@@ -92,6 +105,11 @@ def read_sub(sub):
                     domain=cdata['domain'],
                     scraped=True
             )
+
+            if cdata['is_self']:
+                post.url = post.reddit_url()
+                post.save()
+
 
             """
             print cdata['domain']
@@ -108,21 +126,35 @@ def read_sub(sub):
             """
 
             read_comments(post, "http://reddit.com%s.json" % cdata['permalink'])
+            add_id_to_file(post.reddit_id)
 
 
 class Command(BaseCommand):
+
     def handle(self, *args, **options):
+        pulled = set()
+        for line in open("pulled"):
+            pulled.add(line.strip())
+
         to_pull = [
-                'news', 
-                'videos',
-                'audiophile',
-                'engineeringporn',
-                'brewing',
-                'linux',
-                'movies',
-                'truefilm',
-                'subaru',
-                'wikipedia',
+            #    'news', 
+            #    'videos',
+            #    'audiophile',
+            #    'askreddit',
+            #    'brewing',
+            #    'linux',
+            #    'movies',
+            #    'truefilm',
+            #    'wikipedia',
+                'physics',
+                'dailyprogrammer',
+                'politics',
+                'djent',
+                'beer',
+                'whatcouldgowrong',
+                'crappydesign',
+                'changemyview',
                 ]
-        print read_sub('programming')
+        for sub in to_pull:
+            read_sub(sub, pulled)
 

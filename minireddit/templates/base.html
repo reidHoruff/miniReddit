@@ -23,12 +23,15 @@
 
   <body>
     <div class="sublist">
-      <a href="#">funny</a>
-      <a href="#">pics</a>
-      <a href="#">jokes</a>
-      <a href="#">news</a>
-      <a href="#">sports</a>
-      <a href="#">politics</a>
+      {% if user.is_authenticated %}
+        {% for sub in user.subscribed_to.all %}
+          <a href="{{sub.url}}">{{sub.name}}</a>
+        {% endfor %}
+      {% else %}
+        {% for sub in all_subs %}
+          <a href="{{sub.url}}">{{sub.name}}</a>
+        {% endfor %}
+      {% endif %}
     </div>
     <div class="header">
       <a href="/"><h1 class="title">&mu;eddit</h1></a>

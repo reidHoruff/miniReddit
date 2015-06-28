@@ -2,6 +2,7 @@
 
 {% load staticfiles %}
 {% load sniper %}
+{% load markdown_deux_tags %}
 
 {% block extracss %}
   {{block.super}}
@@ -19,7 +20,7 @@
   <p class="dull">submitted by <a href="/u/{{post.author.username}}/" class="dull2">{{post.author.username}}</a> to <a href="/r/{{post.sub.name}}" class="dull2">/r/{{post.sub.name}}</a></p>
 
   {% if post.body %}
-  <p class="postbody">{{post.body}}</p>
+  <div class="postbody">{{post.body|markdown}}</div>
   {% endif %}
 
   {% if user.is_authenticated %}

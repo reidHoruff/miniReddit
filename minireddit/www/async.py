@@ -156,11 +156,15 @@ def create_sub(request):
 
 @sniper.ajax()
 def view_comment_reply(request):
+    if not request.user.is_authenticated():
+        yield RedirectBrowser('/login/'), None
+
     parent_id = request.REQUEST['parent_id']
     post_id = request.REQUEST['post_id']
 
     args = {
             'commentform': forms.PostComment().set_parent_id(parent_id).set_post_id(post_id),
+            'user': request.user,
     }
 
     yield InsertTemplate(".reply-box-%s"%parent_id, "replybox.html", args)
@@ -217,5 +221,14 @@ def vote(request):
         yield JSLog("score updated: %s" % comment.score)
 
 @sniper.ajax()
-def sub(request):
-    yield JSLog("score updated: %s" % comment.score)
+def subscribe(request):
+    if not request.user.is_authenticated():
+        yield RedirectBrowser('/login/'), None
+
+    subreddit = request.REQUEST.get('sub')
+    action = request.REQUEST.get('a')
+    if action == 's':
+        Sub.objects.get(name=subreddit).subscribers.add(request.user)
+    elif action == 'u':
+        Sub.objects.get(name=subreddit).subscribers.remove(request.user)
+    yield RefreshBrowser(), None
