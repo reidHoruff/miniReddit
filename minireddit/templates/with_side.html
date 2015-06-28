@@ -13,12 +13,12 @@
 
 {% block contained %}
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-10">
     {% block content %}
     {% endblock %}
   </div>
 
-  <div class="col-md-3 sidebar">
+  <div class="col-md-2 sidebar">
     {% if not user.is_authenticated %}
     <h3 id="error"></h3>
     <form class="loginform" method="POST" action="/async/login/" data-sniper="true">

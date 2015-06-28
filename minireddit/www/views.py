@@ -28,7 +28,6 @@ def subreddit(request, subreddit):
         )
 
 def view_post(request, subreddit, post_id):
-    print Post.objects.get(id=post_id).get_comments()
     data = {
             'form': forms.LoginForm(),
             'post': Post.objects.get(id=post_id),
