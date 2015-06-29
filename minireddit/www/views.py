@@ -6,6 +6,7 @@ import forms
 
 @context_template_response
 def home(request):
+    start = int(request.REQUEST.get('start', 0))
     defaults = [
             'funny',
             'pics',
@@ -17,30 +18,37 @@ def home(request):
         ]
 
     if request.user.is_authenticated():
-        posts = Post.objects.filter(sub__in=request.user.subscribed_to.all()).order_by('-score')
+        posts = Post.objects.filter(sub__in=request.user.subscribed_to.all()).order_by('-score')[start:start+25]
     else:
-        posts = Post.objects.filter(sub__name__in=defaults).order_by('-score')
+        posts = Post.objects.filter(sub__name__in=defaults).order_by('-score')[start:start+25]
 
     data = {
             'form': forms.LoginForm(),
             'all_subs': Sub.objects.all(),
             'posts': posts,
             'is_sub': False,
-            }
+            'start': start,
+            'next': "/?start=%s" % (start+25),
+            'prev': "/?start=%s" % (start-25),
+        }
     return "home.html", data
 
 def view_subreddit(request, subreddit):
     issubbed = request.user.is_authenticated() and Sub.objects.filter(name=subreddit, subscribers__id=request.user.id).exists()
-    print issubbed
+    start = int(request.REQUEST.get('start', 0))
+
     data = {
             'issubbed': issubbed,
             'all_subs': Sub.objects.all(),
             'form': forms.LoginForm(),
-            'posts': Post.objects.filter(sub=Sub.objects.get(name=subreddit)),
+            'posts': Post.objects.filter(sub=Sub.objects.get(name=subreddit))[start:start+25],
             'is_sub': True,
             'subscribers': Sub.objects.get(name=subreddit).subscribers.count(),
             'subreddit': subreddit,
-            }
+            'start': start,
+            'next': "/r/%s/?start=%s" % (subreddit, start+25),
+            'prev': "/r/%s/?start=%s" % (subreddit, start-25),
+        }
 
     return render_to_response(
             "home.html",

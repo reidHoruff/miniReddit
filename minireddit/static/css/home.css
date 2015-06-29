@@ -10,11 +10,12 @@ h3#error {
   background: #eef;
 }
 
-.post > .title {
-}
-
 .post {
   position: relative;
+}
+
+.post > .content > .title > h4 {
+  overflow: hidden;
 }
 
 .post > .content > a.title:link {
@@ -27,11 +28,13 @@ h3#error {
 
 .post > .content > .actions {
   margin: 0px;
+  margin-top: 4px;
   padding: 0px;
 }
 
 .post > .content > .actions > a {
   display: inline-block;
+  vertical-align: top;
   margin: 0px;
   padding: 0px;
   line-height: 8px;
@@ -45,23 +48,26 @@ div.about {
   border-radius: 4px;
 }
 
-.content > a {
-  margin: 0px;
-  padding: 0px;
+.post > .scoring, .post > .thumb, .post > .content {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.post > .content {
+  max-width: 85%;
+}
+
+.post > .thumb > img {
+  vertical-align: text-bottom;
+  position: relative;
+  height: 60px;
+  max-width: 60px;
+  margin-right: 8px;
 }
 
 .post > div.content > p {
   margin: 0px;
   padding: 0px;
-}
-
-div.post div.scoring {
-  position: absolute;
-} 
-
-div.post div.content {
-  position: relative;
-  left: 50px;
 }
 
 div.post div.scoring div.score p {
@@ -71,4 +77,8 @@ div.post div.scoring div.score p {
   font-size: small;
   margin: 0px;
   padding: 0px;
+}
+
+.paginate {
+  padding: 24px;
 }

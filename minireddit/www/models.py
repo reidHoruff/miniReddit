@@ -24,6 +24,8 @@ class Sub(models.Model):
 class Post(models.Model):
     url = models.CharField(max_length=1000)
     reddit_id = models.CharField(max_length=255, default="")
+    thumb = models.CharField(max_length=1000, default=None, null=True)
+    reddit_name = models.CharField(max_length=255, default="")
     title = models.CharField(max_length=1000)
     domain = models.CharField(max_length=255)
     is_self = models.BooleanField(default=False)

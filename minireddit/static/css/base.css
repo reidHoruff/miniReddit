@@ -112,11 +112,17 @@ body > .header > .sublist {
   padding-left: 1px;
 }
 
-.dull5 {
+.nsfw {
+  color: white;
+  padding: 2px;
+  padding-bottom: 0px;
+  padding-left: 2px;
+  padding-right: 3px;
+  margin: 0px;
+  border-radius: 1px;
   font-weight: bold;
-  color: #e00;
-  font-size: 11px;
-  padding-left: 1px;
+  background: #e00;
+  font-size: 10px;
 }
 
 
@@ -157,4 +163,12 @@ img.flip {
   transform: scaleY(-1);
   filter: FlipV;
   -ms-filter: "FlipV";
+}
+
+a.btn-primary {
+  font-weight: bold;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: white;
+  background: #369;
 }
