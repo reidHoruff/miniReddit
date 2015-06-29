@@ -39,12 +39,13 @@
         {% block subtitle %}
         {% endblock %}
       </div>
-      <div class="login">
-        {% if user.is_authenticated %}
-          <a href="/profile/">{{user.username}}</a> | 
-          <a href="#logout" data-sniper="/async/logout/">logout</a>
-        {% endif %}
-      </div>
+      {% if user.is_authenticated %}
+        <div class="login">
+            <a href="/profile/">{{user.username}}</a>
+            |
+            <a href="#logout" data-sniper="/async/logout/">logout</a>
+        </div>
+      {% endif %}
     </div>
 
 
@@ -60,6 +61,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static 'bs/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/sniper.js' %}"></script>
+    {% block js %}{% endblock %}
   </body>
 </html>
 

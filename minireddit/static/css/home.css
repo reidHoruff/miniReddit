@@ -11,14 +11,25 @@ h3#error {
 }
 
 .post > .title {
-  color: blue;
 }
 
 .post {
   position: relative;
 }
 
-.post > .content {
+.post > .content > a.title:link {
+  color: blue;
+}
+
+.post > .content > a.title:visited {
+  color: #369;
+}
+
+.post > .content > .actions > a {
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+  margin-right: 4px;
 }
 
 .content > a {
@@ -32,7 +43,6 @@ h3#error {
 }
 
 div.post div.scoring {
-  margin-top: 4px;
   position: absolute;
 } 
 
@@ -46,5 +56,6 @@ div.post div.scoring div.score p {
   font: x-small verdana, arial;
   font-weight: bold;
   font-size: small;
-  margin: 4px;
+  margin: 0px;
+  padding: 0px;
 }

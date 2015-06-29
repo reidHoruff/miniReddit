@@ -10,6 +10,16 @@ import forms
 from django.core.cache import cache
 from urlparse import urlparse
 
+defaults = [
+        'funny',
+        'pics',
+        'askreddit',
+        'news',
+        'movies',
+        'books',
+        'programming',
+    ]
+
 @sniper.ajax()
 def register(request):
     form = forms.Register(request.POST)
@@ -34,6 +44,10 @@ def register(request):
         user.save()
 
         user = authenticate(username=username, password=pw)
+
+        for default in defaults:
+            user.subscribed_to.add(Sub.objects.get(name=default))
+        user.save()
 
         login(request, user)
         yield RedirectBrowser('/'), None

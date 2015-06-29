@@ -1,5 +1,7 @@
-.postlink {
+a.postlink {
+  color: #369;
 }
+
 .postbody {
   padding: 6px;
   background: #f5f5ff;
@@ -44,11 +46,24 @@ form > textarea {
   margin-bottom: 36px;
 }
 
+.rootcomment > form > textarea {
+  background: #eee;
+  border: none;
+}
+
+div.comments {
+  margin-top: 36px;
+}
+
 .comment {
   padding: 8px;
-  margin: 8px;
+  margin-bottom: 8px;
   border: 1px solid #eee;
   border-radius: 2px;
+}
+
+.comment .comment {
+  margin: 8px;
 }
 
 .comment p {

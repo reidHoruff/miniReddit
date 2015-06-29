@@ -156,7 +156,7 @@ function SniperRefreshHandler() {
 function SniperRedirect() {
   this.ident = '__bi_redirect';
   this.handle = function(source, kwargs) {
-    window.location.replace(kwargs.href)
+    window.location.href = kwargs.href;
   }
 }
 

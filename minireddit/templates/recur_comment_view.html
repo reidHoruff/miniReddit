@@ -1,5 +1,5 @@
 {% load markdown_deux_tags %}
-<div class="comment {{color}}">
+<div id="comment-{{comment.comment.id}}" class="comment {{color}}">
   <p class="dull2 commtitle">
     <span class="dull">[</span> 
     <a data-sniper="/async/vote/?id={{comment.comment.id}}&type=comment&value=u" href="#up" class="dull2">+</a>
@@ -11,9 +11,8 @@
     <span class="dull3" id="comm_score_{{comment.comment.id}}">{{comment.comment.score}} points</span>
   </p>
   <div class="commbody">{{comment.comment.body|markdown}}</div>
+  <a class="dull4" href="#hide" onclick="hide_comment({{comment.comment.id}})">hide</a>
   <a class="dull4" href="#reply" data-sniper="/async/view_comment_reply?parent_id={{comment.comment.id}}&post_id={{post.id}}">reply</a>
-  <a class="dull4" href="#message" data-sniper="/async/view_comment_reply?parent_id={{comment.comment.id}}&post_id={{post.id}}">message</a>
-  <a class="dull4" href="#report" data-sniper="/async/view_comment_reply?parent_id={{comment.comment.id}}&post_id={{post.id}}">report</a>
   <div class="reply-box-{{comment.comment.id}}"></div>
 
   <div class="children">
@@ -24,3 +23,11 @@
     {% endfor %}
   </div>
 </div>
+
+{% block js %}
+<script type="text/javascript">
+function hide_comment(id) {
+  $("#comment-" + id).hide();
+}
+</script>
+{% endblock %}

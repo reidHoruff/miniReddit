@@ -35,9 +35,9 @@
     {% if is_sub %}
       <div id="subbutton">
         {% if issubbed %}
-        <a data-sniper="/async/subscribe/?a=u&sub={{subreddit}}" href="#" class="btn btn-danger">unsubscribe from /r/{{subreddit}}</a>
+          <a data-sniper="/async/subscribe/?a=u&sub={{subreddit}}" href="#" class="btn btn-danger">unsubscribe from /r/{{subreddit}}</a>
         {% else %}
-        <a data-sniper="/async/subscribe/?a=s&sub={{subreddit}}" href="#" class="btn btn-success">subscribe to /r/{{subreddit}}</a>
+          <a data-sniper="/async/subscribe/?a=s&sub={{subreddit}}" href="#" class="btn btn-success">subscribe to /r/{{subreddit}}</a>
         {% endif %}
       </div>
       <br />

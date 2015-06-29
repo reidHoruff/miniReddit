@@ -2,20 +2,18 @@ form input[type="text"],
 input[type="password"],
 form input[type="submit"],
 form textarea {
-  background: #eee;
   margin-top: 8px;
 }
 
-textarea {
-  background: #eee;
-}
-
 a {
-  color: blue;
 }
 
 .g {
   color: #777;
+}
+
+input.btn {
+  font-weight: bold;
 }
 
 .b {
@@ -29,11 +27,12 @@ h1, h2, h3, h4, p, a, label {
 
 body > .header {
   border: 1px solid gray;
+  border-right: none;
   background: #cee3f8;
   margin-bottom: 16px;
   padding-left: 18px;
   padding-bottom: 4px;
-  padding-right: 4px;
+  padding-right: 0px;
 }
 
 body > .header > a {
@@ -42,16 +41,26 @@ body > .header > a {
 }
 
 body > .header > .login {
-  margin: 4px;
-  position: absolute;
+  margin: 0px;
+  padding: 4px;
+  position: relative;
   top: 0px;
   right: 0px;
   float: right;
+  background: #EFF7FF;
 }
 
 body > .header > .login > a {
-  color: blue;
-  text-decoration: underline;
+  text-decoration: none;
+  color: #369;
+  font-size: 12px;
+}
+
+body > .header > .login > label.karma {
+  text-decoration: none;
+  color: #369;
+  font-weight: bold;
+  font-size: 12px;
 }
 
 body > .header > .sublist {
@@ -109,22 +118,10 @@ body > .header > .sublist {
 
 .arrow-up {
   position: relative;
-  left: 15px;
-	width: 0; 
-	height: 0; 
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-bottom: 10px solid #ccc;
 }
 
 .arrow-down {
   position: relative;
-  left: 15px;
-	width: 0; 
-	height: 0; 
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-top: 10px solid #ccc;
 }
 
 .scoring {
@@ -143,4 +140,13 @@ body > .header > .sublist {
 .header > .subtitle > a {
   font-weight: bold;
   color: black;
+}
+
+img.flip {
+  -moz-transform: scaleY(-1);
+  -o-transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+  filter: FlipV;
+  -ms-filter: "FlipV";
 }

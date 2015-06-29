@@ -4,7 +4,7 @@ from django.contrib import admin
 urlpatterns = patterns('',
     url(r'^$', 'www.views.home'),
     url(r'^register/$', 'www.views.register'),
-    url(r'^r/(?P<subreddit>[0-9a-zA-Z_]+)/$', 'www.views.subreddit'),
+    url(r'^r/(?P<subreddit>[0-9a-zA-Z_]+)/$', 'www.views.view_subreddit'),
     url(r'^r/(?P<subreddit>[0-9a-zA-Z_]+)/post/(?P<post_id>[0-9]+)/$', 'www.views.view_post'),
     url(r'^u/(?P<username>[0-9a-zA-Z_]+)/$', 'www.views.view_profile'),
     url(r'^createsub/$', 'www.views.create_sub'),
