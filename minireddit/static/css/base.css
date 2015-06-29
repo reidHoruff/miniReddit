@@ -6,11 +6,14 @@ form textarea {
 }
 
 a {
-  color: blue;
 }
 
 .g {
   color: #777;
+}
+
+input.btn {
+  font-weight: bold;
 }
 
 .b {
@@ -24,11 +27,12 @@ h1, h2, h3, h4, p, a, label {
 
 body > .header {
   border: 1px solid gray;
+  border-right: none;
   background: #cee3f8;
   margin-bottom: 16px;
   padding-left: 18px;
   padding-bottom: 4px;
-  padding-right: 4px;
+  padding-right: 0px;
 }
 
 body > .header > a {
@@ -37,16 +41,26 @@ body > .header > a {
 }
 
 body > .header > .login {
-  margin: 4px;
-  position: absolute;
+  margin: 0px;
+  padding: 4px;
+  position: relative;
   top: 0px;
   right: 0px;
   float: right;
+  background: #EFF7FF;
 }
 
 body > .header > .login > a {
-  color: blue;
-  text-decoration: underline;
+  text-decoration: none;
+  color: #369;
+  font-size: 12px;
+}
+
+body > .header > .login > label.karma {
+  text-decoration: none;
+  color: #369;
+  font-weight: bold;
+  font-size: 12px;
 }
 
 body > .header > .sublist {
@@ -67,12 +81,11 @@ body > .header > .sublist {
 .sublist a {
   margin-right: 4px;
   text-transform: uppercase;
-  font-size: 8px;
+  font-size: 10px;
   color: #333;
 }
 
 .dull {
-  font-weight: bold;
   color: #888;
   font-size: 11px;
   padding-left: 1px;
@@ -92,30 +105,48 @@ body > .header > .sublist {
   font-weight: bold;
 }
 
+.dull4 {
+  font-weight: bold;
+  color: #888;
+  font-size: 11px;
+  padding-left: 1px;
+}
+
 .c {
   text-align: center;
 }
 
 .arrow-up {
   position: relative;
-  left: 15px;
-	width: 0; 
-	height: 0; 
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-bottom: 10px solid #aaa;
 }
 
 .arrow-down {
   position: relative;
-  left: 15px;
-	width: 0; 
-	height: 0; 
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-top: 10px solid #aaa;
 }
 
 .scoring {
   width: 50px;
+}
+
+.header  h1.title {
+  display: inline-block;
+}
+
+.header > .subtitle {
+  margin-left: 12px;
+  display: inline-block;
+}
+
+.header > .subtitle > a {
+  font-weight: bold;
+  color: black;
+}
+
+img.flip {
+  -moz-transform: scaleY(-1);
+  -o-transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+  filter: FlipV;
+  -ms-filter: "FlipV";
 }

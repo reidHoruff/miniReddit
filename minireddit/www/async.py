@@ -7,6 +7,18 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from models import *
 import forms
+from django.core.cache import cache
+from urlparse import urlparse
+
+defaults = [
+        'funny',
+        'pics',
+        'askreddit',
+        'news',
+        'movies',
+        'books',
+        'programming',
+    ]
 
 @sniper.ajax()
 def register(request):
@@ -33,6 +45,10 @@ def register(request):
 
         user = authenticate(username=username, password=pw)
 
+        for default in defaults:
+            user.subscribed_to.add(Sub.objects.get(name=default))
+        user.save()
+
         login(request, user)
         yield RedirectBrowser('/'), None
     except:
@@ -51,13 +67,31 @@ def submit(request):
         if len(Sub.objects.filter(name=subreddit)) < 1:
             yield InsertText('#error', "subreddit not does not exist"), None
 
+        if not url and not body:
+            yield InsertText('#error', "you must supply either a url or body text."), None
+
+        if not url:
+            is_self = True
+            domain = "self.%s" % subreddit
+        else:
+            is_self = False
+            domain = '{uri.netloc}'.format(uri=urlparse(url))
+
         post = Post.objects.create(
             url=url,
             title=title,
             author=request.user,
             body=body,
-            sub=Sub.objects.get(name=subreddit)
+            sub=Sub.objects.get(name=subreddit),
+            score=1,
+            is_self=is_self,
+            domain=domain
         )
+
+        if is_self:
+            post.url = "/r/%s/post/%s/" % (subreddit, post.id)
+            post.save()
+
         yield RedirectBrowser('/r/%s/post/%s/' % (subreddit, post.id)), None
 
     else:
@@ -85,6 +119,9 @@ def comment(request):
             score=1,
             post=post
         )
+
+        cache_key = "post:%s" % post.id
+        cache.delete(cache_key)
 
         yield RedirectBrowser('/r/%s/post/%s/' % (post.sub.name, post.id)), None
 
@@ -133,17 +170,25 @@ def create_sub(request):
 
 @sniper.ajax()
 def view_comment_reply(request):
+    if not request.user.is_authenticated():
+        yield RedirectBrowser('/login/'), None
+
     parent_id = request.REQUEST['parent_id']
     post_id = request.REQUEST['post_id']
 
     args = {
             'commentform': forms.PostComment().set_parent_id(parent_id).set_post_id(post_id),
+            'user': request.user,
     }
 
     yield InsertTemplate(".reply-box-%s"%parent_id, "replybox.html", args)
 
 @sniper.ajax()
 def vote(request):
+
+    if not request.user.is_authenticated():
+        yield RedirectBrowser('/login/'), None
+
     type = request.REQUEST.get('type')
     id = request.REQUEST.get('id')
     value = request.REQUEST.get('value')
@@ -186,50 +231,18 @@ def vote(request):
         comment.score -= old_value
         comment.score += value
         comment.save()
+        yield InsertText("#comm_score_%s" % id, "%s points" % comment.score)
         yield JSLog("score updated: %s" % comment.score)
 
 @sniper.ajax()
-def sub(request):
-    type = request.REQUEST.get('type')
-    id = request.REQUEST.get('id')
-    value = request.REQUEST.get('value')
-    value = {'u': 1, 'd': -1}[value]
+def subscribe(request):
+    if not request.user.is_authenticated():
+        yield RedirectBrowser('/login/'), None
 
-    if type == 'post':
-        post = Post.objects.get(id=id)
-        old_value = 0
-        if PostVote.objects.filter(author=request.user, post=post).exists():
-            vote = PostVote.objects.get(author=request.user, post=post)
-            old_value = vote.value
-            vote.value = value
-            vote.save()
-        else:
-            PostVote.objects.create(
-                    author=request.user,
-                    post=post,
-                    value=value
-                    )
-        post.score -= old_value
-        post.score += value
-        post.save()
-        yield JSLog("score updated: %s" % post.score)
-        yield InsertText("#score-%s" % id, post.score)
-
-    if type == 'comment':
-        comment = Comment.objects.get(id=id)
-        old_value = 0
-        if CommentVote.objects.filter(author=request.user, comment=comment).exists():
-            vote = CommentVote.objects.get(author=request.user, comment=comment)
-            old_value = vote.value
-            vote.value = value
-            vote.save()
-        else:
-            CommentVote.objects.create(
-                    author=request.user,
-                    comment=comment,
-                    value=value
-                    )
-        comment.score -= old_value
-        comment.score += value
-        comment.save()
-        yield JSLog("score updated: %s" % comment.score)
+    subreddit = request.REQUEST.get('sub')
+    action = request.REQUEST.get('a')
+    if action == 's':
+        Sub.objects.get(name=subreddit).subscribers.add(request.user)
+    elif action == 'u':
+        Sub.objects.get(name=subreddit).subscribers.remove(request.user)
+    yield RefreshBrowser(), None

@@ -1,4 +1,4 @@
-.sidebar > a.btn {
+.sidebar a.btn {
   margin-top: 6px;
   width: 100%;
   font-weight: bold;
@@ -12,4 +12,12 @@
 a.createaccount {
   margin-bottom: 24px;
 }
+
+div.about {
+  margin-top: 8px;
+  padding: 4px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
 

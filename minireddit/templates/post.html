@@ -2,6 +2,9 @@
 
 {% load staticfiles %}
 {% load sniper %}
+{% load markdown_deux_tags %}
+
+{% block title %}&mu;eddit - {{post.title}}{% endblock %}
 
 {% block extracss %}
   {{block.super}}
@@ -10,14 +13,17 @@
 
 {% block subtitle %}
   {% if is_sub %}
-  <a href="/r/{{subreddit}}"><h3>{{subreddit}}</h3></a>
+  <a href="/r/{{subreddit}}">{{subreddit}}</a>
   {% endif %}
 {% endblock %}
 
 {% block content %}
-  <a class="postlink" href="{{post.url}}"><h3>"{{post.title}}"</h3></a>
+  <a class="postlink" href="{{post.url}}"><h3>{{post.title}}</h3></a>
   <p class="dull">submitted by <a href="/u/{{post.author.username}}/" class="dull2">{{post.author.username}}</a> to <a href="/r/{{post.sub.name}}" class="dull2">/r/{{post.sub.name}}</a></p>
-  <p class="postbody">{{post.body}}</p>
+
+  {% if post.body %}
+  <div class="postbody">{{post.body|markdown}}</div>
+  {% endif %}
 
   {% if user.is_authenticated %}
   <div class="rootcomment">
@@ -32,11 +38,11 @@
     </div>
   {% endif %}
 
-  <h3>comments</h3>
-
-  {% for cc in post.get_comments %}
-    {% with template_name="recur_comment_view.html" post=post comment=cc color="colora" ncolor="colorb" %}
-      {% include template_name %}
-    {% endwith %}
-  {% endfor %}
+  <div class="comments">
+    {% for cc in post.get_comments %}
+      {% with template_name="recur_comment_view.html" post=post comment=cc color="colora" ncolor="colorb" %}
+        {% include template_name %}
+      {% endwith %}
+    {% endfor %}
+  </div>
 {% endblock %}

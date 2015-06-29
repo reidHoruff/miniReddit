@@ -6,18 +6,39 @@ import forms
 
 @context_template_response
 def home(request):
+    defaults = [
+            'funny',
+            'pics',
+            'askreddit',
+            'news',
+            'movies',
+            'books',
+            'programming',
+        ]
+
+    if request.user.is_authenticated():
+        posts = Post.objects.filter(sub__in=request.user.subscribed_to.all()).order_by('-score')
+    else:
+        posts = Post.objects.filter(sub__name__in=defaults).order_by('-score')
+
     data = {
             'form': forms.LoginForm(),
-            'posts': Post.objects.all(),
+            'all_subs': Sub.objects.all(),
+            'posts': posts,
             'is_sub': False,
             }
     return "home.html", data
 
-def subreddit(request, subreddit):
+def view_subreddit(request, subreddit):
+    issubbed = request.user.is_authenticated() and Sub.objects.filter(name=subreddit, subscribers__id=request.user.id).exists()
+    print issubbed
     data = {
+            'issubbed': issubbed,
+            'all_subs': Sub.objects.all(),
             'form': forms.LoginForm(),
             'posts': Post.objects.filter(sub=Sub.objects.get(name=subreddit)),
             'is_sub': True,
+            'subscribers': Sub.objects.get(name=subreddit).subscribers.count(),
             'subreddit': subreddit,
             }
 
@@ -28,11 +49,14 @@ def subreddit(request, subreddit):
         )
 
 def view_post(request, subreddit, post_id):
-    print Post.objects.get(id=post_id).get_comments()
+    issubbed = request.user.is_authenticated() and Sub.objects.filter(name=subreddit, subscribers__id=request.user.id).exists()
     data = {
+            'issubbed': issubbed,
+            'all_subs': Sub.objects.all(),
             'form': forms.LoginForm(),
             'post': Post.objects.get(id=post_id),
             'is_sub': True,
+            'subscribers': Sub.objects.get(name=subreddit).subscribers.count(),
             'subreddit': subreddit,
             'rootcommentform': forms.PostComment().set_parent_id(-1).set_post_id(post_id),
             }

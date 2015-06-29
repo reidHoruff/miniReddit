@@ -3,6 +3,14 @@
 {% load staticfiles %}
 {% load sniper %}
 
+{% block title %}
+{% if is_sub %}
+&mu;eddit - /r/{{subreddit}}
+{% else %}
+&mu;eddit - homepage
+{% endif %}
+{% endblock %}
+
 {% block extracss %}
   {{block.super}}
   <link href="{% static 'css/home.css' %}" type="text/css" rel="stylesheet"/>
@@ -10,7 +18,7 @@
 
 {% block subtitle %}
   {% if is_sub %}
-    <a href="/r/{{subreddit}}"><h3>{{subreddit}}</h3</a>
+    <a href="/r/{{subreddit}}">{{subreddit}}</a>
   {% endif %}
 {% endblock %}
 
@@ -18,15 +26,26 @@
   {% for post in posts %}
     <div class="post">
       <div class="scoring c">
-        <a href="#up" data-sniper="/async/vote?type=post&id={{post.id}}&value=u"><div class="arrow-up"></div></a>
+        <a href="#up" data-sniper="/async/vote?type=post&id={{post.id}}&value=u"><img class="arrow-up" src="/static/img/up.png"></img></a>
         <div class="score c"><p class="b g" id="score-{{post.id}}">{{post.score}}</p></div>
-        <a href="#down" data-sniper="/async/vote?type=post&id={{post.id}}&value=d"><div class="arrow-down"></div></a>
+        <a href="#down" data-sniper="/async/vote?type=post&id={{post.id}}&value=d"><img class="arrow-down flip" src="/static/img/up.png"></a>
       </div>
       <div class="content">
         <a href="{{post.url}}" class="title"><h4>{{post.title}}</h4></a>
-        <p class="dull">submitted by <a href="#" class="dull2">{{post.author.username}}</a> to <a href="{{post.reddit_url}}" class="dull2">/r/{{post.sub.name}}</a></p>
-        <a href="/r/{{post.sub.name}}/post/{{post.id}}" class="dull">{{post.comments.count}} comments</a>
+
+        <p class="dull">submitted by 
+          <a href="/u/{{post.author.username}}" class="dull2">{{post.author.username}}</a> 
+          to 
+          <a href="{{post.sub_url}}" class="dull2">/r/{{post.sub.name}}</a>
+          &mu;
+          <a href="http://{{post.domain}}" class="dull4">[{{post.domain}}]</a>
+        </p>
+
+        <div class="actions">
+          <a href="/r/{{post.sub.name}}/post/{{post.id}}" class="dull4 commentslink"><p>{{post.comments.count}} comments</p></a>
+          <a href="/r/{{post.sub.name}}/post/{{post.id}}" class="dull4 commentslink"><p>save</p></a>
         </div>
+      </div>
     </div>
   {% endfor %}
 {% endblock %}
