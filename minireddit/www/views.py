@@ -38,6 +38,7 @@ def view_subreddit(request, subreddit):
             'form': forms.LoginForm(),
             'posts': Post.objects.filter(sub=Sub.objects.get(name=subreddit)),
             'is_sub': True,
+            'subscribers': Sub.objects.get(name=subreddit).subscribers.count(),
             'subreddit': subreddit,
             }
 
@@ -55,6 +56,7 @@ def view_post(request, subreddit, post_id):
             'form': forms.LoginForm(),
             'post': Post.objects.get(id=post_id),
             'is_sub': True,
+            'subscribers': Sub.objects.get(name=subreddit).subscribers.count(),
             'subreddit': subreddit,
             'rootcommentform': forms.PostComment().set_parent_id(-1).set_post_id(post_id),
             }

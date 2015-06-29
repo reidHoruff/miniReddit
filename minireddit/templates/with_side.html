@@ -50,8 +50,12 @@
     <br />
 
     {% if is_sub %}
-    <a href="/submit/?sub={{subreddit}}" class="btn btn-primary">submit a link to /r/{{subreddit}}</a>
+      <a href="/submit/?sub={{subreddit}}" class="btn btn-primary">submit a link to /r/{{subreddit}}</a>
       <br />
+      <div class="about">
+        <h3>{{subreddit}}</h3>
+        subscribers: {{subscribers}}
+      </div>
     {% endif %}
   </div>
 </div>

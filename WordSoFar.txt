@@ -1,3 +1,0 @@
-So far I have set up a django project, virtual environment and small sql database.
-
-The site contains basic functionality such as account creation, logging in, logging out and the beginning of post submition. I have also created a small html template heirarchy that will make further page creation easy. I have also spent time building up the architecture so that further implementation should be easier/faster.

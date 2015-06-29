@@ -24,7 +24,7 @@ def read_json_page(url):
             return js
         except:
             print "failed..."
-            time.sleep(2)
+            time.sleep(5)
 
 def create_or_get_user(username):
     try:
@@ -51,6 +51,8 @@ def handle_comment(post, node, parent=None):
     score = data['score']
     body = data['body']
     author_user = create_or_get_user(author)
+
+    post.sub.subscribers.add(author_user)
 
     current_comment = Comment.objects.create(
             author=author_user,
@@ -137,15 +139,15 @@ class Command(BaseCommand):
             pulled.add(line.strip())
 
         to_pull = [
-            #    'news', 
-            #    'videos',
-            #    'audiophile',
-            #    'askreddit',
-            #    'brewing',
-            #    'linux',
-            #    'movies',
-            #    'truefilm',
-            #    'wikipedia',
+                'news', 
+                'videos',
+                'audiophile',
+                'askreddit',
+                'brewing',
+                'linux',
+                'movies',
+                'truefilm',
+                'wikipedia',
                 'physics',
                 'funny',
                 'pics',
