@@ -33,6 +33,7 @@ class Post(models.Model):
     sub = models.ForeignKey(Sub)
     datetime = models.DateTimeField(auto_now=True)
     scraped = models.BooleanField(default=False)
+    nsfw = models.BooleanField(default=False)
 
     def get_comments(self):
         cache_key = "post:%s" % self.id

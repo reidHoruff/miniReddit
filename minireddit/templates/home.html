@@ -26,9 +26,15 @@
   {% for post in posts %}
     <div class="post">
       <div class="scoring c">
-        <a href="#up" data-sniper="/async/vote?type=post&id={{post.id}}&value=u"><img class="arrow-up" src="/static/img/up.png"></img></a>
-        <div class="score c"><p class="b g" id="score-{{post.id}}">{{post.score}}</p></div>
-        <a href="#down" data-sniper="/async/vote?type=post&id={{post.id}}&value=d"><img class="arrow-down flip" src="/static/img/up.png"></a>
+        <a href="#up" data-sniper="/async/vote?type=post&id={{post.id}}&value=u">
+          <img class="arrow-up" src="/static/img/up.png"></img>
+        </a>
+        <div class="score c">
+          <p class="b g" id="score-{{post.id}}">{{post.score}}</p>
+        </div>
+        <a href="#down" data-sniper="/async/vote?type=post&id={{post.id}}&value=d">
+          <img class="arrow-down flip" src="/static/img/up.png">
+        </a>
       </div>
       <div class="content">
         <a href="{{post.url}}" class="title"><h4>{{post.title}}</h4></a>
@@ -39,6 +45,9 @@
           <a href="{{post.sub_url}}" class="dull2">/r/{{post.sub.name}}</a>
           &mu;
           <a href="http://{{post.domain}}" class="dull4">[{{post.domain}}]</a>
+          {% if post.nsfw %}
+            <span class="dull5">[NSFW]</span>
+          {% endif %}
         </p>
 
         <div class="actions">

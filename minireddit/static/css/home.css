@@ -25,10 +25,16 @@ h3#error {
   color: #369;
 }
 
+.post > .content > .actions {
+  margin: 0px;
+  padding: 0px;
+}
+
 .post > .content > .actions > a {
   display: inline-block;
   margin: 0px;
   padding: 0px;
+  line-height: 8px;
   margin-right: 4px;
 }
 

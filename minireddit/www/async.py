@@ -63,6 +63,7 @@ def submit(request):
         url = form.cleaned_data['url']
         subreddit = form.cleaned_data['subreddit']
         body = form.cleaned_data['body']
+        nsfw = form.cleaned_data['body']
 
         if len(Sub.objects.filter(name=subreddit)) < 1:
             yield InsertText('#error', "subreddit not does not exist"), None
@@ -85,7 +86,8 @@ def submit(request):
             sub=Sub.objects.get(name=subreddit),
             score=1,
             is_self=is_self,
-            domain=domain
+            domain=domain,
+            nsfw=nsfw
         )
 
         if is_self:

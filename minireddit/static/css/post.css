@@ -36,7 +36,7 @@ a.postlink {
 }
 
 form > textarea {
-  background: #666;
+  background: #efefef;
   max-width: 600px;
   height: 150px;
 }
@@ -47,7 +47,7 @@ form > textarea {
 }
 
 .rootcomment > form > textarea {
-  background: #eee;
+  background: #efefef;
   border: none;
 }
 

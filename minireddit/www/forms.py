@@ -111,6 +111,7 @@ class SubmitPost(SiForm):
     return self
 
   title = text_input(name='title') 
+  nsfw = forms.BooleanField()
   subreddit = text_input(name='subreddit') 
   url = text_input(name='url', required=False) 
   body = textarea(name='body', required=False) 

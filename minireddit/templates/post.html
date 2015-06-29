@@ -19,7 +19,12 @@
 
 {% block content %}
   <a class="postlink" href="{{post.url}}"><h3>{{post.title}}</h3></a>
-  <p class="dull">submitted by <a href="/u/{{post.author.username}}/" class="dull2">{{post.author.username}}</a> to <a href="/r/{{post.sub.name}}" class="dull2">/r/{{post.sub.name}}</a></p>
+  <p class="dull">
+    submitted by 
+    <a href="/u/{{post.author.username}}/" class="dull2">{{post.author.username}}</a> 
+    to 
+    <a href="/r/{{post.sub.name}}" class="dull2">/r/{{post.sub.name}}</a>
+  </p>
 
   {% if post.body %}
   <div class="postbody">{{post.body|markdown}}</div>

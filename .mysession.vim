@@ -37,7 +37,7 @@ badd +24 ~/dev/mini_reddit/minireddit/templates/login.html
 badd +186 ~/.vimrc
 badd +174 ~/dev/mini_reddit/minireddit/sniper/static/sniper/sniper.js
 badd +7 ~/dev/mini_reddit/requirements.pip
-badd +0 ~/dev/mini_reddit/minireddit/pulled
+badd +1 ~/dev/mini_reddit/minireddit/pulled
 argglobal
 silent! argdel *
 edit ~/dev/mini_reddit/minireddit/pulled
@@ -47,7 +47,7 @@ set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
-let s:l = 1 - ((0 * winheight(0) + 28) / 56)
+let s:l = 1 - ((0 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt

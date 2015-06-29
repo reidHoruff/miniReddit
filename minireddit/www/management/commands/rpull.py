@@ -105,6 +105,7 @@ def read_sub(sub, pulled):
                     reddit_id=cdata['id'],
                     is_self=cdata['is_self'],
                     domain=cdata['domain'],
+                    nsfw=cdata['over_18'],
                     scraped=True
             )
 
@@ -116,6 +117,7 @@ def read_sub(sub, pulled):
             """
             print cdata['domain']
             print cdata['url']
+            print cdata['over_18']
             print cdata['subreddit']
             print cdata['author']
             print cdata['title']
@@ -139,10 +141,10 @@ class Command(BaseCommand):
             pulled.add(line.strip())
 
         to_pull = [
+                'askreddit',
                 'news', 
                 'videos',
                 'audiophile',
-                'askreddit',
                 'brewing',
                 'linux',
                 'movies',

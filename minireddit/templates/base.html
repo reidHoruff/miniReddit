@@ -41,9 +41,9 @@
       </div>
       {% if user.is_authenticated %}
         <div class="login">
-            <a href="/profile/">{{user.username}}</a>
+          <a href="/u/{{user.username}}">{{user.username}}</a>
             |
-            <a href="#logout" data-sniper="/async/logout/">logout</a>
+          <a href="#logout" data-sniper="/async/logout/">logout</a>
         </div>
       {% endif %}
     </div>
