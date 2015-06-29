@@ -44,6 +44,16 @@
       <div class="content">
         <a href="{{post.url}}" class="title"><h4>{{post.title}}</h4></a>
 
+        {% if post.is_raw_imgur %}
+        <a href="#showimg" data-sniper="/async/showimg/?post_id={{post.id}}" class="expand">
+          <p>+</p>
+        </a>
+        {% elif post.body %}
+        <a href="#getbody" data-sniper="/async/getbody/?post_id={{post.id}}" class="expand">
+          <p>+</p>
+        </a>
+        {% endif %}
+
         <p class="dull">
           {% if post.nsfw %}
             <span class="nsfw">NSFW</span>
@@ -60,6 +70,8 @@
           <a href="/r/{{post.sub.name}}/post/{{post.id}}" class="dull4 commentslink"><p>{{post.comments.count}} comments</p></a>
           <a href="/r/{{post.sub.name}}/post/{{post.id}}" class="dull4 commentslink"><p>save</p></a>
         </div>
+
+        <div class="body-insert body-insert-{{post.id}}"></div>
       </div>
     </div>
   {% endfor %}

@@ -186,6 +186,23 @@ def view_comment_reply(request):
     yield InsertTemplate(".reply-box-%s"%parent_id, "replybox.html", args)
 
 @sniper.ajax()
+def getbody(request):
+    post_id = request.REQUEST['post_id']
+
+    args = {
+            'post': Post.objects.get(id=post_id),
+    }
+
+    yield InsertTemplate(".body-insert-%s" % post_id, "body.html", args)
+
+@sniper.ajax()
+def showimg(request):
+    post_id = request.REQUEST['post_id']
+    post = Post.objects.get(id=post_id)
+    img = """<img src="%s"></img>""" % post.url
+    yield InsertText(".body-insert-%s" % post_id, img)
+
+@sniper.ajax()
 def vote(request):
 
     if not request.user.is_authenticated():

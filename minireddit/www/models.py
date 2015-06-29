@@ -37,6 +37,9 @@ class Post(models.Model):
     scraped = models.BooleanField(default=False)
     nsfw = models.BooleanField(default=False)
 
+    def is_raw_imgur(self):
+        return self.domain == 'i.imgur.com'
+
     def get_comments(self):
         cache_key = "post:%s" % self.id
 

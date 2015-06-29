@@ -96,3 +96,7 @@ div.replybox textarea {
   background: #eee;
   height: 120px;
 }
+
+div.postbody, div.comments p {
+  margin-top: 10px;
+}

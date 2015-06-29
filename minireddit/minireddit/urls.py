@@ -20,6 +20,8 @@ urlpatterns = patterns('',
     url(r'^async/login/$', 'www.async._login'),
     url(r'^async/view_comment_reply/$', 'www.async.view_comment_reply'),
     url(r'^async/vote/$', 'www.async.vote'),
+    url(r'^async/getbody/$', 'www.async.getbody'),
+    url(r'^async/showimg/$', 'www.async.showimg'),
     url(r'^async/subscribe/$', 'www.async.subscribe'),
 
     url(r'^admin/', include(admin.site.urls)),

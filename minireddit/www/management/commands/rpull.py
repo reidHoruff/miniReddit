@@ -205,10 +205,15 @@ class Command(BaseCommand):
                 'space',
                 'television',
                 'documentaries',
+                'music',
                 ]
+
+        #just incase duplicated...
+        to_pull = list(set(to_pull))
+
         for sub in to_pull:
             last_post_name = None
-            for _ in range(4):
+            for _ in range(6):
                 last_post_name = read_sub(sub, pulled, last_post_name)
                 if not last_post_name:
                     break
