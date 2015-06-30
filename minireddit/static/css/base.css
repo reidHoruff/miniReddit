@@ -115,9 +115,6 @@ body > .header > .sublist {
 .nsfw {
   color: white;
   padding: 2px;
-  padding-bottom: 0px;
-  padding-left: 2px;
-  padding-right: 3px;
   margin: 0px;
   border-radius: 1px;
   font-weight: bold;

@@ -18,12 +18,20 @@
 {% endblock %}
 
 {% block content %}
-  <a class="postlink" href="{{post.url}}"><h3>{{post.title}}</h3></a>
+  <a class="postlink" href="{{post.url}}">
+    <h3>{{post.title}}</h3>
+  </a>
+
   <p class="dull">
+    {% if post.nsfw %}
+      <span class="nsfw">NSFW</span>
+    {% endif %}
     submitted by 
-    <a href="/u/{{post.author.username}}/" class="dull2">{{post.author.username}}</a> 
+    <a href="/u/{{post.author.username}}" class="dull2">{{post.author.username}}</a> 
     to 
-    <a href="/r/{{post.sub.name}}" class="dull2">/r/{{post.sub.name}}</a>
+    <a href="{{post.sub_url}}" class="dull2">/r/{{post.sub.name}}</a>
+    &mu;
+    <a href="http://{{post.domain}}" class="dull4">[{{post.domain}}]</a>
   </p>
 
   {% if post.body %}
